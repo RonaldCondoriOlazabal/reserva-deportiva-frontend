@@ -1,0 +1,13 @@
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\AuthApplication.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\config\OpenApiConfig.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\controller\GatewayInstanciasController.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\controller\UsuarioController.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\dto\UsuarioRequest.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\dto\UsuarioResponse.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\entity\Usuario.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\exception\ResourceNotFoundException.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\filter\CorrelationIdFilter.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\mapper\UsuarioMapper.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\repository\UsuarioRepository.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\service\impl\UsuarioServiceImpl.java
+E:\codigo\codigo\auth\src\main\java\com\upeu\auth\service\UsuarioService.java

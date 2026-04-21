@@ -1,0 +1,15 @@
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\config\OpenApiConfig.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\controller\GatewayInstanciasController.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\controller\HorarioController.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\dto\HorarioRequest.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\dto\HorarioResponse.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\entity\Horario.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\exception\ApiErrorResponse.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\exception\GlobalExceptionHandler.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\exception\ResourceNotFoundException.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\filter\CorrelationIdFilter.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\HorariosApplication.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\mapper\HorarioMapper.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\repository\HorarioRepository.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\service\HorarioService.java
+E:\codigo\codigo\horarios\src\main\java\com\upeu\horarios\service\impl\HorarioServiceImpl.java

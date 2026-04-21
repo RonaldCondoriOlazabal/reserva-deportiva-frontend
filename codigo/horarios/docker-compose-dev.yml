@@ -1,0 +1,17 @@
+name: horarios-dev
+
+services:
+  mysql-horarios-dev:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_horarios
+    ports:
+      - "3403:3306"
+    volumes:
+      - mysql_horarios_dev_data:/var/lib/mysql
+
+volumes:
+  mysql_horarios_dev_data:
+

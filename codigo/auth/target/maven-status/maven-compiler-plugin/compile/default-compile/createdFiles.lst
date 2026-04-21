@@ -1,0 +1,16 @@
+com\upeu\auth\controller\UsuarioController.class
+com\upeu\auth\entity\Usuario.class
+com\upeu\auth\dto\UsuarioRequest$UsuarioRequestBuilder.class
+com\upeu\auth\service\UsuarioService.class
+com\upeu\auth\repository\UsuarioRepository.class
+com\upeu\auth\controller\GatewayInstanciasController.class
+com\upeu\auth\mapper\UsuarioMapper.class
+com\upeu\auth\dto\UsuarioResponse.class
+com\upeu\auth\exception\ResourceNotFoundException.class
+com\upeu\auth\entity\Usuario$UsuarioBuilder.class
+com\upeu\auth\config\OpenApiConfig.class
+com\upeu\auth\filter\CorrelationIdFilter.class
+com\upeu\auth\dto\UsuarioResponse$UsuarioResponseBuilder.class
+com\upeu\auth\dto\UsuarioRequest.class
+com\upeu\auth\service\impl\UsuarioServiceImpl.class
+com\upeu\auth\AuthApplication.class

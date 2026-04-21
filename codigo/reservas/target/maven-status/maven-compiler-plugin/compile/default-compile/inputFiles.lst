@@ -1,0 +1,17 @@
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\client\CanchasClient.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\client\HorariosClient.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\config\OpenApiConfig.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\controller\GatewayInstanciasController.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\controller\ReservaController.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\dto\CanchaDto.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\dto\HorarioDto.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\dto\ReservaRequest.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\dto\ReservaResponse.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\entity\Reserva.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\exception\ResourceNotFoundException.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\filter\CorrelationIdFilter.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\mapper\ReservaMapper.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\repository\ReservaRepository.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\ReservasApplication.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\service\impl\ReservaServiceImpl.java
+E:\codigo\codigo\reservas\src\main\java\com\upeu\reservas\service\ReservaService.java

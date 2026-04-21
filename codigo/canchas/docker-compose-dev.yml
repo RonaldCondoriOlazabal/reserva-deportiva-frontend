@@ -1,0 +1,17 @@
+name: canchas-dev
+
+services:
+  mysql-canchas-dev:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_canchas
+    ports:
+      - "3402:3306"
+    volumes:
+      - mysql_canchas_dev_data:/var/lib/mysql
+
+volumes:
+  mysql_canchas_dev_data:
+
