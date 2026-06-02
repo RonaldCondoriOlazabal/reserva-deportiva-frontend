@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "canchas", fallback = CanchasClient.Fallback.class)
+@FeignClient(name = "canchas-ms", fallback = CanchasClient.Fallback.class)
 public interface CanchasClient {
     @GetMapping("/api/v1/canchas/{id}")
     CanchaDto findCanchaById(@PathVariable("id") Long id);

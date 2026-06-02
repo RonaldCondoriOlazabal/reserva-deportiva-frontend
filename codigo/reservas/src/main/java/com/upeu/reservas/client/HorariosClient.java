@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "horarios", fallback = HorariosClient.Fallback.class)
+@FeignClient(name = "horarios-ms", fallback = HorariosClient.Fallback.class)
 public interface HorariosClient {
     @GetMapping("/api/v1/horarios/{id}")
     HorarioDto findHorarioById(@PathVariable("id") Long id);

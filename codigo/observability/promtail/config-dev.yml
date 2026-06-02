@@ -1,0 +1,45 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions-dev.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: auth
+    static_configs:
+      - targets: [localhost]
+        labels:
+          service: auth
+          __path__: /var/log/microservices/auth/*.log
+
+  - job_name: canchas
+    static_configs:
+      - targets: [localhost]
+        labels:
+          service: canchas
+          __path__: /var/log/microservices/canchas/*.log
+
+  - job_name: horarios
+    static_configs:
+      - targets: [localhost]
+        labels:
+          service: horarios
+          __path__: /var/log/microservices/horarios/*.log
+
+  - job_name: reservas
+    static_configs:
+      - targets: [localhost]
+        labels:
+          service: reservas
+          __path__: /var/log/microservices/reservas/*.log
+
+  - job_name: pago
+    static_configs:
+      - targets: [localhost]
+        labels:
+          service: pago
+          __path__: /var/log/microservices/pago/*.log

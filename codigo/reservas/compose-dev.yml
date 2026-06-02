@@ -1,0 +1,18 @@
+name: reservas-dev
+
+services:
+  postgres-reservas-dev:
+    image: postgres:16-alpine
+    container_name: reservas-postgres-reservas-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: db_reservas
+      POSTGRES_USER: reservas
+      POSTGRES_PASSWORD: reservas
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_reservas_dev_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_reservas_dev_data:

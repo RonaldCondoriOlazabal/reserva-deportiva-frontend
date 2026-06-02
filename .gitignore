@@ -1,24 +1,44 @@
-# Compiled class file
+# Proyecto del profesor (referencia local, no subir)
+ecom-main/
+
+# Build Maven / Java
+target/
+**/target/
 *.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
-*.nar
 *.ear
+
+# Logs
+*.log
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# Entorno / secretos
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# BlueJ / otros
+*.ctxt
+.mtj.tmp/
+hs_err_pid*
+replay_pid*
+
+# Empaquetados
 *.zip
 *.tar.gz
 *.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*

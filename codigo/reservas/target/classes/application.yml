@@ -1,19 +1,28 @@
 spring:
   application:
-    name: reservas
+    name: reservas-ms
   profiles:
     active: dev
   config:
     import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:7071}"
 
+app:
+  kafka:
+    topic:
+      reservas: reserva-eventos
+
 management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics,prometheus,circuitbreakers,circuitbreakerevents
   endpoint:
     health:
       show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 logging:
   level:

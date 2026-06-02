@@ -7,28 +7,61 @@ import com.upeu.reservas.dto.HorarioDto;
 import com.upeu.reservas.dto.ReservaRequest;
 import com.upeu.reservas.dto.ReservaResponse;
 import com.upeu.reservas.entity.Reserva;
+import com.upeu.reservas.evento.EventoReserva;
 import com.upeu.reservas.exception.ResourceNotFoundException;
 import com.upeu.reservas.mapper.ReservaMapper;
 import com.upeu.reservas.repository.ReservaRepository;
+import com.upeu.reservas.service.ReservaProducer;
 import com.upeu.reservas.service.ReservaService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ReservaServiceImpl implements ReservaService {
+
+    private static final String TIPO_RESERVA_CREADA = "reserva.creada";
+    private static final BigDecimal MONTO_RESERVA = new BigDecimal("50.00");
+
     private final ReservaRepository repository;
     private final ReservaMapper mapper;
     private final CanchasClient canchasClient;
     private final HorariosClient horariosClient;
+    private final ReservaProducer reservaProducer;
+
+    @Value("${spring.application.name}")
+    private String applicationName;
 
     @Override
     @Transactional
     public ReservaResponse create(ReservaRequest request) {
-        return mapper.toResponse(repository.save(mapper.toEntity(request)));
+        Reserva reservaGuardada = repository.save(mapper.toEntity(request));
+
+        EventoReserva evento = EventoReserva.builder()
+                .tipoEvento(TIPO_RESERVA_CREADA)
+                .reservaId(reservaGuardada.getId())
+                .idUsuario(reservaGuardada.getIdUsuario())
+                .idCancha(reservaGuardada.getIdCancha())
+                .idHorario(reservaGuardada.getIdHorario())
+                .monto(MONTO_RESERVA)
+                .estado(reservaGuardada.getEstado())
+                .origen(applicationName)
+                .timestamp(Instant.now().toEpochMilli())
+                .build();
+
+        reservaProducer.publicarReservaCreada(evento);
+
+        return mapper.toResponse(reservaGuardada);
     }
 
     @Override
@@ -63,10 +96,24 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     @Transactional(readOnly = true)
+    @CircuitBreaker(name = "reservasDetalle", fallbackMethod = "fallbackDetalleReserva")
     public ReservaResponse findDetalleById(Long id) {
+        log.info("Buscando detalle de reserva con ID: {}", id);
         Reserva reserva = getById(id);
-        CanchaDto cancha = canchasClient.findCanchaById(reserva.getIdCancha());
-        HorarioDto horario = horariosClient.findHorarioById(reserva.getIdHorario());
+        CanchaDto cancha;
+        HorarioDto horario;
+
+        try {
+            cancha = canchasClient.findCanchaById(reserva.getIdCancha());
+        } catch (FeignException.NotFound ex) {
+            throw new ResourceNotFoundException("Cancha con id " + reserva.getIdCancha() + " no encontrada");
+        }
+
+        try {
+            horario = horariosClient.findHorarioById(reserva.getIdHorario());
+        } catch (FeignException.NotFound ex) {
+            throw new ResourceNotFoundException("Horario con id " + reserva.getIdHorario() + " no encontrado");
+        }
 
         return ReservaResponse.builder()
                 .id(reserva.getId())
@@ -77,6 +124,24 @@ public class ReservaServiceImpl implements ReservaService {
                 .estado(reserva.getEstado())
                 .cancha(cancha)
                 .horario(horario)
+                .build();
+    }
+
+    public ReservaResponse fallbackDetalleReserva(Long id, Throwable ex) {
+        if (ex instanceof ResourceNotFoundException resourceNotFoundException) {
+            throw resourceNotFoundException;
+        }
+        log.warn("Fallback activado para reserva ID {}. Motivo: {}", id, ex.getMessage());
+        Reserva reserva = getById(id);
+        return ReservaResponse.builder()
+                .id(reserva.getId())
+                .idUsuario(reserva.getIdUsuario())
+                .idCancha(reserva.getIdCancha())
+                .idHorario(reserva.getIdHorario())
+                .fechaReserva(reserva.getFechaReserva())
+                .estado(reserva.getEstado())
+                .cancha(null)
+                .horario(null)
                 .build();
     }
 

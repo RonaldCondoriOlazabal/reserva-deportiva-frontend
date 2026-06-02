@@ -8,6 +8,7 @@ import com.upeu.auth.mapper.UsuarioMapper;
 import com.upeu.auth.repository.UsuarioRepository;
 import com.upeu.auth.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +19,14 @@ import java.util.List;
 public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository repository;
     private final UsuarioMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public UsuarioResponse create(UsuarioRequest request) {
-        return mapper.toResponse(repository.save(mapper.toEntity(request)));
+        Usuario entity = mapper.toEntity(request);
+        entity.setPassword(passwordEncoder.encode(request.getPassword()));
+        return mapper.toResponse(repository.save(entity));
     }
 
     @Override
@@ -45,6 +49,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario con id " + id + " no encontrado"));
         mapper.updateEntityFromRequest(entity, request);
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            entity.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
         return mapper.toResponse(repository.save(entity));
     }
 

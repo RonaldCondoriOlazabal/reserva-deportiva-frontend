@@ -1,0 +1,42 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - /etc/prometheus/alerts.yml
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: auth-ms-dev
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["host.docker.internal:9081"]
+
+  - job_name: canchas-ms-dev
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["host.docker.internal:9082"]
+
+  - job_name: horarios-ms-dev
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["host.docker.internal:9083"]
+
+  - job_name: reservas-ms-dev
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - host.docker.internal:9084
+          - host.docker.internal:9184
+
+  - job_name: pago-ms-dev
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["host.docker.internal:9085"]
+
+  - job_name: kafka-exporter-dev
+    static_configs:
+      - targets: ["host.docker.internal:41308"]

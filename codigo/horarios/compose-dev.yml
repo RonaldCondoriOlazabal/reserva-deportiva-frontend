@@ -1,0 +1,18 @@
+name: horarios-dev
+
+services:
+  postgres-horarios-dev:
+    image: postgres:16-alpine
+    container_name: reservas-postgres-horarios-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: db_horarios
+      POSTGRES_USER: reservas
+      POSTGRES_PASSWORD: reservas
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_horarios_dev_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_horarios_dev_data:

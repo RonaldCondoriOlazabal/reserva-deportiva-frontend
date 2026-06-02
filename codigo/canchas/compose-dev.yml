@@ -1,0 +1,18 @@
+name: canchas-dev
+
+services:
+  postgres-canchas-dev:
+    image: postgres:16-alpine
+    container_name: reservas-postgres-canchas-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: db_canchas
+      POSTGRES_USER: reservas
+      POSTGRES_PASSWORD: reservas
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_canchas_dev_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_canchas_dev_data:

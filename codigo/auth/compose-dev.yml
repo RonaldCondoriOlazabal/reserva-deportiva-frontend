@@ -1,0 +1,18 @@
+name: auth-dev
+
+services:
+  postgres-auth-dev:
+    image: postgres:16-alpine
+    container_name: reservas-postgres-auth-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: db_auth
+      POSTGRES_USER: reservas
+      POSTGRES_PASSWORD: reservas
+    ports:
+      - "5431:5432"
+    volumes:
+      - postgres_auth_dev_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_auth_dev_data:

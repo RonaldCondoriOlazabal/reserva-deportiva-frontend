@@ -1,6 +1,6 @@
 spring:
   application:
-    name: horarios
+    name: horarios-ms
   profiles:
     active: dev
   config:
@@ -10,10 +10,14 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics,prometheus,circuitbreakers,circuitbreakerevents
   endpoint:
     health:
       show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 logging:
   level:

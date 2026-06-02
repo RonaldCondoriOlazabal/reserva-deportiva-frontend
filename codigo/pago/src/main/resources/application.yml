@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: pago-ms
+  profiles:
+    active: dev
+  config:
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:7071}"
+
+app:
+  kafka:
+    topic:
+      reservas: reserva-eventos
+      pagos: pago-eventos
+    group-id:
+      pagos: pago-ms-group
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,circuitbreakers,circuitbreakerevents
+  endpoint:
+    health:
+      show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+logging:
+  level:
+    root: INFO
