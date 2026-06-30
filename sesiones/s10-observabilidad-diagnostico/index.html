@@ -1,0 +1,1568 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Sistema distribuido de reservas de canchas deportivas con Spring Cloud y Angular">
+      
+      
+      
+      
+        <link rel="prev" href="../s09-consistencia-distribuida/">
+      
+      
+        <link rel="next" href="../s11-integracion-frontend/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>S10 - Observabilidad y diagnostico - Reserva Deportiva - DISTribuidas 2026</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#s10-observabilidad-y-diagnostico" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Reserva Deportiva - DISTribuidas 2026" class="md-header__button md-logo" aria-label="Reserva Deportiva - DISTribuidas 2026" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Reserva Deportiva - DISTribuidas 2026
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              S10 - Observabilidad y diagnostico
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Reserva Deportiva - DISTribuidas 2026" class="md-nav__button md-logo" aria-label="Reserva Deportiva - DISTribuidas 2026" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Reserva Deportiva - DISTribuidas 2026
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Sistema distribuido base
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Sistema distribuido base
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s01-servicio-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S1 - Servicio base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s02-configuracion-ambientes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S2 - Configuracion y ambientes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s03-registro-descubrimiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 - Registro y descubrimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s04-acceso-unico-trafico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S4 - Acceso unico y trafico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s05-evaluacion-u1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S5 - Evaluacion U1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Sistema distribuido robusto
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Sistema distribuido robusto
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s06-comunicacion-sincrona/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S6 - Comunicacion sincrona resiliente
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s07-seguridad-distribuida/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S7 - Seguridad distribuida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s08-mensajeria-asincrona/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S8 - Mensajeria asincrona
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s09-consistencia-distribuida/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S9 - Consistencia distribuida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S10 - Observabilidad y diagnostico
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S10 - Observabilidad y diagnostico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-proposito" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Propósito
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-stack-de-observabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Stack de observabilidad
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-levantar-el-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Levantar el stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-prometheus-metricas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Prometheus — métricas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Prometheus — métricas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#targets-de-scraping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targets de scraping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consultas-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consultas útiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alertas-configuradas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alertas configuradas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-loki-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Loki — logs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Loki — logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consultas-logql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consultas LogQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estructura-de-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructura de logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-dashboard-grafana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Dashboard Grafana
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-trazabilidad-distribuida-correlation-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Trazabilidad distribuida — Correlation ID
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-verificacion-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Verificación completa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-diagnostico-de-problemas-con-el-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Diagnóstico de problemas con el stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s11-integracion-frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S11 - Integracion frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s12-evaluacion-u2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S12 - Evaluacion U2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Validacion y consolidacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Validacion y consolidacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s13-validacion-end-to-end/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S13 - Validacion end-to-end
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s14-revision-tecnica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S14 - Revision tecnica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s15-defensa-tecnica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S15 - Defensa tecnica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s16-evaluacion-final/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S16 - Evaluacion final
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-proposito" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Propósito
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-stack-de-observabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Stack de observabilidad
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-levantar-el-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Levantar el stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-prometheus-metricas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Prometheus — métricas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Prometheus — métricas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#targets-de-scraping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targets de scraping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consultas-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consultas útiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alertas-configuradas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alertas configuradas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-loki-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Loki — logs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Loki — logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consultas-logql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consultas LogQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estructura-de-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructura de logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-dashboard-grafana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Dashboard Grafana
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-trazabilidad-distribuida-correlation-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Trazabilidad distribuida — Correlation ID
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-verificacion-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Verificación completa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-diagnostico-de-problemas-con-el-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Diagnóstico de problemas con el stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="s10-observabilidad-y-diagnostico">S10 - Observabilidad y Diagnóstico</h1>
+<h2 id="1-proposito">1. Propósito</h2>
+<p>Implementar visibilidad total del sistema distribuido mediante el stack <strong>Prometheus + Loki + Grafana</strong>, con alertas configuradas y trazabilidad de peticiones entre microservicios.</p>
+<h2 id="2-stack-de-observabilidad">2. Stack de observabilidad</h2>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
+│                    Grafana :13000                            │
+│           (dashboards, alertas, logs, métricas)             │
+└────────────────┬──────────────────────┬─────────────────────┘
+                 │                      │
+        ┌────────┘                      └────────┐
+        ▼                                        ▼
+┌───────────────┐                    ┌───────────────────┐
+│ Prometheus    │                    │       Loki        │
+│   :19090      │                    │      :13100       │
+│  (métricas)   │                    │  (logs agregados) │
+└───────┬───────┘                    └────────┬──────────┘
+        │  scrape /actuator/prometheus         │
+        │                                     │  Promtail
+        ▼                                     ▼  lee logs/
+  auth-ms   canchas-ms   horarios-ms   reservas-ms   pago-ms
+  :9081      :9082         :9083         :9084         :9085
+</code></pre></div>
+<h2 id="3-levantar-el-stack">3. Levantar el stack</h2>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">observability</span>
+<span class="n">docker</span> <span class="n">compose</span> <span class="o">-f</span> <span class="n">compose-dev</span><span class="p">.</span><span class="n">yml</span> <span class="n">up</span> <span class="n">-d</span>
+</code></pre></div>
+<p>Servicios levantados:
+| Servicio | URL | Credenciales |
+|---------|-----|-------------|
+| Grafana | http://localhost:13000 | admin / admin |
+| Prometheus | http://localhost:19090 | — |
+| Loki | http://localhost:13100 | — |
+| Kafka Exporter | http://localhost:41308/metrics | — |</p>
+<h2 id="4-prometheus-metricas">4. Prometheus — métricas</h2>
+<h3 id="targets-de-scraping">Targets de scraping</h3>
+<p>Prometheus raspa automáticamente los 5 microservicios:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">scrape_configs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-dev</span>
+<span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;host.docker.internal:9081&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/actuator/prometheus</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">canchas-dev</span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;host.docker.internal:9082&#39;</span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horarios-dev</span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;host.docker.internal:9083&#39;</span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reservas-dev</span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;host.docker.internal:9084&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;host.docker.internal:9184&#39;</span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pago-dev</span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;host.docker.internal:9085&#39;</span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kafka-dev</span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;host.docker.internal:41308&#39;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="consultas-utiles">Consultas útiles</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># ¿Todos los servicios están arriba?</span>
+<span class="nv">up</span><span class="p">{</span><span class="nl">job</span><span class="o">=~</span><span class="p">&quot;</span><span class="s">.*-dev</span><span class="p">&quot;}</span>
+
+<span class="c1"># Tasa de peticiones por servicio (req/min)</span>
+<span class="k">sum</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="o">(</span><span class="nv">job</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="kr">rate</span><span class="o">(</span><span class="nv">http_server_requests_seconds_count</span><span class="p">[</span><span class="s">1m</span><span class="p">]</span><span class="o">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span>
+
+<span class="c1"># Tasa de errores 5xx</span>
+<span class="kr">rate</span><span class="o">(</span><span class="nv">http_server_requests_seconds_count</span><span class="p">{</span><span class="nl">status</span><span class="o">=~</span><span class="p">&quot;</span><span class="s">5..</span><span class="p">&quot;}[</span><span class="s">5m</span><span class="p">]</span><span class="o">)</span>
+
+<span class="c1"># Latencia p99 por servicio</span>
+<span class="kr">histogram_quantile</span><span class="o">(</span><span class="mf">0.99</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="kr">rate</span><span class="o">(</span><span class="nv">http_server_requests_seconds_bucket</span><span class="p">[</span><span class="s">5m</span><span class="p">]</span><span class="o">)</span>
+<span class="o">)</span>
+
+<span class="c1"># Memoria JVM usada</span>
+<span class="nv">jvm_memory_used_bytes</span><span class="p">{</span><span class="nl">area</span><span class="o">=</span><span class="p">&quot;</span><span class="s">heap</span><span class="p">&quot;}</span>
+
+<span class="c1"># Estado del Circuit Breaker</span>
+<span class="nv">resilience4j_circuitbreaker_state</span><span class="p">{</span><span class="nl">name</span><span class="o">=</span><span class="p">&quot;</span><span class="s">reservasDetalle</span><span class="p">&quot;}</span>
+</code></pre></div>
+<h3 id="alertas-configuradas">Alertas configuradas</h3>
+<table>
+<thead>
+<tr>
+<th>Alerta</th>
+<th>Condición</th>
+<th>Severidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ServicioCaido</code></td>
+<td><code>up == 0</code> por 1 min</td>
+<td>critical</td>
+</tr>
+<tr>
+<td><code>AltaTasaErrores5xx</code></td>
+<td>tasa 5xx &gt; umbral</td>
+<td>warning</td>
+</tr>
+<tr>
+<td><code>CircuitBreakerAbierto</code></td>
+<td>estado = <code>OPEN</code></td>
+<td>warning</td>
+</tr>
+</tbody>
+</table>
+<p>Ver alertas en: http://localhost:19090/alerts</p>
+<h2 id="5-loki-logs">5. Loki — logs</h2>
+<h3 id="consultas-logql">Consultas LogQL</h3>
+<div class="highlight"><pre><span></span><code># Todos los logs de reservas-ms
+{service=&quot;reservas&quot;}
+
+# Errores en cualquier servicio
+{service=~&quot;.+&quot;} |= &quot;ERROR&quot;
+
+# Buscar por traceId (trazabilidad entre servicios)
+{service=&quot;reservas&quot;} |= &quot;traceId=&quot;
+
+# Logs del consumidor Kafka en pago-ms
+{service=&quot;pago&quot;} |= &quot;component=consumer&quot;
+
+# Latencia del procesamiento asíncrono
+{service=&quot;pago&quot;} |= &quot;latencyMs=&quot; | regexp `latencyMs=(?P&lt;latency&gt;\d+)`
+
+# Fallback activado en Circuit Breaker
+{service=&quot;reservas&quot;} |= &quot;Fallback activado&quot;
+</code></pre></div>
+<h3 id="estructura-de-logs">Estructura de logs</h3>
+<p>Los microservicios usan un formato estructurado (logback-spring.xml):</p>
+<div class="highlight"><pre><span></span><code>2026-07-01 08:00:00 [reservas-ms] INFO  ReservaServiceImpl - 
+  service=reservas-ms event=reserva.creada reservaId=1 status=published
+
+2026-07-01 08:00:01 [pago-ms] INFO  ReservaConsumer - 
+  service=pago-ms component=consumer topic=reserva-eventos 
+  reservaId=1 latencyMs=1200 status=consumed
+</code></pre></div>
+<h2 id="6-dashboard-grafana">6. Dashboard Grafana</h2>
+<p>El dashboard <strong>"Microservicios - Reservas Deportivas"</strong> se provisiona automáticamente con los siguientes paneles:</p>
+<table>
+<thead>
+<tr>
+<th>Panel</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disponibilidad de servicios</td>
+<td>Estado up/down de los 5 MS</td>
+</tr>
+<tr>
+<td>Peticiones por segundo</td>
+<td>Tráfico por servicio</td>
+</tr>
+<tr>
+<td>Errores 5xx</td>
+<td>Tasa de fallos</td>
+</tr>
+<tr>
+<td>Latencia p50 / p99</td>
+<td>Tiempos de respuesta</td>
+</tr>
+<tr>
+<td>JVM Heap</td>
+<td>Memoria usada</td>
+</tr>
+<tr>
+<td>CPU Usage</td>
+<td>Uso de CPU</td>
+</tr>
+<tr>
+<td>Circuit Breaker state</td>
+<td>Estado de Resilience4j</td>
+</tr>
+<tr>
+<td>Kafka Consumer Lag</td>
+<td>Lag del grupo pago-ms-group</td>
+</tr>
+<tr>
+<td>Logs en tiempo real</td>
+<td>Panel Loki integrado</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-trazabilidad-distribuida-correlation-id">7. Trazabilidad distribuida — Correlation ID</h2>
+<p>Cada petición recibe un <code>X-Correlation-ID</code> único que se propaga entre servicios:</p>
+<div class="highlight"><pre><span></span><code>Cliente ──▶ Gateway (genera X-Correlation-ID: abc123)
+              │
+              ▼
+        reservas-ms (log: correlationId=abc123)
+              │
+              ├──▶ canchas-ms (log: correlationId=abc123)
+              └──▶ horarios-ms (log: correlationId=abc123)
+</code></pre></div>
+<p>Buscar en Loki todos los logs de una petición:
+<div class="highlight"><pre><span></span><code>{service=~&quot;.+&quot;} |= &quot;abc123&quot;
+</code></pre></div></p>
+<h2 id="8-verificacion-completa">8. Verificación completa</h2>
+<div class="highlight"><pre><span></span><code><span class="c"># 1. Generar tráfico</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span>
+    <span class="nb">curl </span><span class="n">-s</span> <span class="n">http</span><span class="p">://</span><span class="n">localhost</span><span class="p">:</span><span class="n">7091</span><span class="p">/</span><span class="n">api</span><span class="p">/</span><span class="n">v1</span><span class="p">/</span><span class="n">canchas</span> <span class="p">&gt;</span> <span class="nv">$null</span>
+    <span class="nb">Start-Sleep</span> <span class="n">-Milliseconds</span> <span class="n">500</span>
+<span class="p">}</span>
+
+<span class="c"># 2. Verificar en Prometheus</span>
+<span class="c"># http://localhost:19090</span>
+<span class="c"># Query: up{job=~&quot;.*-dev&quot;}  → todos deben mostrar 1</span>
+
+<span class="c"># 3. Verificar en Grafana</span>
+<span class="c"># http://localhost:13000 → dashboard &quot;Microservicios - Reservas Deportivas&quot;</span>
+<span class="c"># Debe mostrar métricas de los 5 servicios</span>
+
+<span class="c"># 4. Ver logs en Loki (desde Grafana Explore)</span>
+<span class="c"># {service=&quot;canchas&quot;} → logs de las últimas peticiones</span>
+
+<span class="c"># 5. Provocar Circuit Breaker y ver alerta</span>
+<span class="c"># Apagar horarios-ms y llamar a /detalle → ver estado en Grafana</span>
+</code></pre></div>
+<h2 id="9-diagnostico-de-problemas-con-el-stack">9. Diagnóstico de problemas con el stack</h2>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grafana sin datos</td>
+<td>Prometheus no raspa los MS</td>
+<td>Verificar que los MS tienen <code>/actuator/prometheus</code> expuesto</td>
+</tr>
+<tr>
+<td>Prometheus targets DOWN</td>
+<td>Microservicio caído o puerto incorrecto</td>
+<td>Revisar que los MS están en 9081-9085</td>
+</tr>
+<tr>
+<td>Loki sin logs</td>
+<td>Promtail no encuentra la carpeta <code>logs/</code></td>
+<td>Cada MS debe generar logs en <code>logs/</code> (ver logback-spring.xml)</td>
+</tr>
+<tr>
+<td>Alertas no aparecen</td>
+<td><code>alerts.yml</code> no configurado en Prometheus</td>
+<td>Verificar <code>rule_files</code> en <code>prometheus.yml</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

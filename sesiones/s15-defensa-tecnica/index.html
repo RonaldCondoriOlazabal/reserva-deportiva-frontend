@@ -1,0 +1,1518 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Sistema distribuido de reservas de canchas deportivas con Spring Cloud y Angular">
+      
+      
+      
+      
+        <link rel="prev" href="../s14-revision-tecnica/">
+      
+      
+        <link rel="next" href="../s16-evaluacion-final/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>S15 - Defensa tecnica - Reserva Deportiva - DISTribuidas 2026</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#s15-defensa-tecnica" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Reserva Deportiva - DISTribuidas 2026" class="md-header__button md-logo" aria-label="Reserva Deportiva - DISTribuidas 2026" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Reserva Deportiva - DISTribuidas 2026
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              S15 - Defensa tecnica
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Reserva Deportiva - DISTribuidas 2026" class="md-nav__button md-logo" aria-label="Reserva Deportiva - DISTribuidas 2026" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Reserva Deportiva - DISTribuidas 2026
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Sistema distribuido base
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Sistema distribuido base
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s01-servicio-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S1 - Servicio base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s02-configuracion-ambientes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S2 - Configuracion y ambientes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s03-registro-descubrimiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 - Registro y descubrimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s04-acceso-unico-trafico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S4 - Acceso unico y trafico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s05-evaluacion-u1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S5 - Evaluacion U1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Sistema distribuido robusto
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Sistema distribuido robusto
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s06-comunicacion-sincrona/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S6 - Comunicacion sincrona resiliente
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s07-seguridad-distribuida/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S7 - Seguridad distribuida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s08-mensajeria-asincrona/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S8 - Mensajeria asincrona
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s09-consistencia-distribuida/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S9 - Consistencia distribuida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s10-observabilidad-diagnostico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S10 - Observabilidad y diagnostico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s11-integracion-frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S11 - Integracion frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s12-evaluacion-u2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S12 - Evaluacion U2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Validacion y consolidacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Validacion y consolidacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s13-validacion-end-to-end/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S13 - Validacion end-to-end
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s14-revision-tecnica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S14 - Revision tecnica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S15 - Defensa tecnica
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S15 - Defensa tecnica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-proposito" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Propósito
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-resultado-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Resultado de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-producto-de-sesion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Producto de sesión
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-guia-de-demostracion-5-minutos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Guía de demostración (5 minutos)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Guía de demostración (5 minutos)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minuto-1-estado-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 1 — Estado del sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minuto-2-flujo-completo-de-reserva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 2 — Flujo completo de reserva
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minuto-3-resilencia-apagar-un-servicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 3 — Resilencia: apagar un servicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minuto-4-trazabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 4 — Trazabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minuto-5-balanceo-de-carga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 5 — Balanceo de carga
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-preguntas-frecuentes-del-docente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Preguntas frecuentes del docente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Preguntas frecuentes del docente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seguridad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seguridad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kafka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kafka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-checklist-de-defensa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Checklist de defensa
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s16-evaluacion-final/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S16 - Evaluacion final
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-proposito" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Propósito
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-resultado-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Resultado de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-producto-de-sesion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Producto de sesión
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-guia-de-demostracion-5-minutos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Guía de demostración (5 minutos)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Guía de demostración (5 minutos)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minuto-1-estado-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 1 — Estado del sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minuto-2-flujo-completo-de-reserva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 2 — Flujo completo de reserva
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minuto-3-resilencia-apagar-un-servicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 3 — Resilencia: apagar un servicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minuto-4-trazabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 4 — Trazabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minuto-5-balanceo-de-carga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minuto 5 — Balanceo de carga
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-preguntas-frecuentes-del-docente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Preguntas frecuentes del docente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Preguntas frecuentes del docente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seguridad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seguridad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kafka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kafka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-checklist-de-defensa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Checklist de defensa
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="s15-defensa-tecnica">S15 - Defensa Técnica</h1>
+<h2 id="1-proposito">1. Propósito</h2>
+<p>Demostrar en vivo la capacidad de operar, diagnosticar y defender el sistema de reservas deportivas ante preguntas técnicas del docente, con el sistema funcionando en tiempo real.</p>
+<h2 id="2-resultado-de-aprendizaje">2. Resultado de aprendizaje</h2>
+<p>El estudiante puede operar el sistema bajo condiciones controladas: simular fallas, interpretar métricas, trazar peticiones y explicar cada decisión de arquitectura con evidencia en código.</p>
+<h2 id="3-producto-de-sesion">3. Producto de sesión</h2>
+<p>Demostración en vivo con evidencia técnica individual de:
+- Sistema corriendo y observable
+- Flujo completo ejecutable en menos de 3 minutos
+- Capacidad de diagnosticar un fallo inducido
+- Justificación de al menos 3 decisiones de diseño</p>
+<h2 id="4-guia-de-demostracion-5-minutos">4. Guía de demostración (5 minutos)</h2>
+<h3 id="minuto-1-estado-del-sistema">Minuto 1 — Estado del sistema</h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Mostrar todos los servicios activos</span>
+<span class="n">docker</span> <span class="nb">ps </span><span class="p">-</span><span class="n">-format</span> <span class="s2">&quot;table {{.Names}}\t{{.Status}}\t{{.Ports}}&quot;</span>
+
+<span class="c"># Eureka: 5 servicios registrados</span>
+<span class="nb">Start-Process</span> <span class="s2">&quot;http://localhost:7081&quot;</span>
+
+<span class="c"># Grafana: dashboard con métricas</span>
+<span class="nb">Start-Process</span> <span class="s2">&quot;http://localhost:13000&quot;</span>
+</code></pre></div>
+<h3 id="minuto-2-flujo-completo-de-reserva">Minuto 2 — Flujo completo de reserva</h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Login</span>
+<span class="nv">$RES</span> <span class="p">=</span> <span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="n">POST</span> <span class="p">`</span>
+  <span class="n">-Uri</span> <span class="s2">&quot;http://localhost:7091/auth/login&quot;</span> <span class="p">`</span>
+  <span class="n">-ContentType</span> <span class="s2">&quot;application/json&quot;</span> <span class="p">`</span>
+  <span class="n">-Body</span> <span class="s1">&#39;{&quot;username&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;admin123&quot;}&#39;</span>
+<span class="nv">$TOKEN</span> <span class="p">=</span> <span class="nv">$RES</span><span class="p">.</span><span class="n">accessToken</span>
+
+<span class="c"># Crear reserva</span>
+<span class="nv">$RESERVA</span> <span class="p">=</span> <span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="n">POST</span> <span class="p">`</span>
+  <span class="n">-Uri</span> <span class="s2">&quot;http://localhost:7091/api/v1/reservas&quot;</span> <span class="p">`</span>
+  <span class="n">-Headers</span> <span class="p">@{</span><span class="n">Authorization</span><span class="p">=</span><span class="s2">&quot;Bearer $TOKEN&quot;</span><span class="p">;</span> <span class="s2">&quot;Content-Type&quot;</span><span class="p">=</span><span class="s2">&quot;application/json&quot;</span><span class="p">}</span> <span class="p">`</span>
+  <span class="n">-Body</span> <span class="s1">&#39;{&quot;idUsuario&quot;:2,&quot;idCancha&quot;:1,&quot;idHorario&quot;:1,&quot;fechaReserva&quot;:&quot;2026-07-15&quot;,&quot;estado&quot;:&quot;PENDIENTE&quot;}&#39;</span>
+
+<span class="nb">Write-Host</span> <span class="s2">&quot;Reserva creada ID:&quot;</span> <span class="nv">$RESERVA</span><span class="p">.</span><span class="n">id</span>
+
+<span class="c"># Verificar pago automático generado por Kafka</span>
+<span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="n">2</span>
+<span class="nb">Invoke-RestMethod</span> <span class="s2">&quot;http://localhost:7091/api/v1/pagos&quot;</span> <span class="p">`</span>
+  <span class="n">-Headers</span> <span class="p">@{</span><span class="n">Authorization</span><span class="p">=</span><span class="s2">&quot;Bearer $TOKEN&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">Format-Table</span>
+</code></pre></div>
+<h3 id="minuto-3-resilencia-apagar-un-servicio">Minuto 3 — Resilencia: apagar un servicio</h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Detener horarios-ms (simular falla)</span>
+<span class="c"># Ctrl+C en la terminal de horarios-ms</span>
+
+<span class="c"># Solicitar detalle de reserva (debe retornar fallback, no 500)</span>
+<span class="nb">Invoke-RestMethod</span> <span class="s2">&quot;http://localhost:7091/api/v1/reservas/detalle/1&quot;</span> <span class="p">`</span>
+  <span class="n">-Headers</span> <span class="p">@{</span><span class="n">Authorization</span><span class="p">=</span><span class="s2">&quot;Bearer $TOKEN&quot;</span><span class="p">}</span>
+
+<span class="c"># Ver estado del circuit breaker</span>
+<span class="nb">Invoke-RestMethod</span> <span class="s2">&quot;http://localhost:9084/actuator/circuitbreakers&quot;</span>
+<span class="c"># Estado: OPEN para horarios-ms</span>
+</code></pre></div>
+<h3 id="minuto-4-trazabilidad">Minuto 4 — Trazabilidad</h3>
+<div class="highlight"><pre><span></span><code>1. Abrir Grafana: http://localhost:13000
+2. Dashboard: &quot;Microservicios - Reservas Deportivas&quot;
+   → Mostrar RPS, latencia, errores de los 5 servicios
+3. Explore → Loki → query: {service=&quot;reservas&quot;} |= &quot;correlationId&quot;
+   → Identificar el correlationId de la última petición
+   → Buscar el mismo ID en logs de pago-ms
+</code></pre></div>
+<h3 id="minuto-5-balanceo-de-carga">Minuto 5 — Balanceo de carga</h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Abrir segunda terminal con segunda instancia</span>
+<span class="c"># cd reservas &amp;&amp; mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=9184</span>
+
+<span class="c"># Probar balanceo</span>
+<span class="n">1</span><span class="p">..</span><span class="n">6</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+  <span class="p">(</span><span class="nb">Invoke-RestMethod</span> <span class="s2">&quot;http://localhost:7091/api/v1/reserva/instancia&quot;</span> <span class="p">`</span>
+    <span class="n">-Headers</span> <span class="p">@{</span><span class="n">Authorization</span><span class="p">=</span><span class="s2">&quot;Bearer $TOKEN&quot;</span><span class="p">}).</span><span class="n">puerto</span>
+<span class="p">}</span>
+<span class="c"># Resultado esperado: 9084, 9184, 9084, 9184, 9084, 9184</span>
+</code></pre></div>
+<h2 id="5-preguntas-frecuentes-del-docente">5. Preguntas frecuentes del docente</h2>
+<h3 id="arquitectura">Arquitectura</h3>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Por qué microservicios y no un monolito?</td>
+<td>Cada dominio (canchas, reservas, pagos) escala y se despliega independientemente. Si los pagos tienen alta carga, escalamos solo <code>pago-ms</code></td>
+</tr>
+<tr>
+<td>¿Cómo manejan transacciones distribuidas?</td>
+<td>No usamos 2PC. Kafka garantiza entrega del evento; si <code>pago-ms</code> falla, el mensaje queda en el topic y se reprocesa cuando vuelva</td>
+</tr>
+<tr>
+<td>¿Por qué PostgreSQL y no MySQL?</td>
+<td>PostgreSQL soporta mejor JSON, arrays y tiene MVCC más eficiente. Spring Boot 3.x tiene mejor integración con su driver</td>
+</tr>
+</tbody>
+</table>
+<h3 id="seguridad">Seguridad</h3>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Dónde se valida el JWT?</td>
+<td>En el Gateway, antes de enrutar. Los microservicios no tienen Spring Security para JWT; confían en que el Gateway ya validó</td>
+</tr>
+<tr>
+<td>¿Por qué Keycloak además de JWT propio?</td>
+<td>Auth-ms maneja cuentas admin/cliente con JWT simple. Keycloak maneja el flujo OAuth2 de registro de dueños con su propio realm</td>
+</tr>
+<tr>
+<td>¿Qué pasa si roban el JWT?</td>
+<td>El token expira (tiempo configurado en <code>JwtProperties</code>). Mitigación adicional: implementar lista negra de tokens o usar refresh token rotation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="kafka">Kafka</h3>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Qué pasa si <code>pago-ms</code> está caído cuando se crea una reserva?</td>
+<td>Kafka retiene el mensaje en el topic. Cuando <code>pago-ms</code> reinicia, consume todos los eventos pendientes desde su último offset</td>
+</tr>
+<tr>
+<td>¿Por qué KRaft y no ZooKeeper?</td>
+<td>Kafka 4.x elimina ZooKeeper. KRaft es el modo nativo, reduce la complejidad operacional (un componente menos)</td>
+</tr>
+<tr>
+<td>¿Qué garantías de entrega usan?</td>
+<td><code>at-least-once</code>: el producer confirma cuando el broker recibió el mensaje. El consumer comitea el offset tras procesar</td>
+</tr>
+</tbody>
+</table>
+<h3 id="observabilidad">Observabilidad</h3>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Qué métrica usarías para detectar un problema en producción?</td>
+<td><code>http_server_requests_seconds_count</code> filtrado por <code>status=5xx</code> + alerta en Prometheus si supera un umbral en 1 minuto</td>
+</tr>
+<tr>
+<td>¿Cómo correlacionas logs entre servicios?</td>
+<td>El <code>CorrelationIdFilter</code> genera un UUID por petición que se incluye en todos los logs via MDC. Se busca el mismo UUID en Loki</td>
+</tr>
+<tr>
+<td>¿Qué alertas tienes configuradas?</td>
+<td><code>ServicioCaido</code> (up=0), <code>AltaTasaErrores5xx</code> (&gt;5% de requests con 500), <code>CircuitBreakerAbierto</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-checklist-de-defensa">6. Checklist de defensa</h2>
+<ul>
+<li>[ ] Sistema completo corriendo al iniciar la sesión</li>
+<li>[ ] Dashboard Grafana con datos reales (no vacío)</li>
+<li>[ ] Flujo de reserva ejecutado en vivo (&lt; 3 min)</li>
+<li>[ ] Falla inducida → fallback demostrado</li>
+<li>[ ] Balanceo de carga demostrado con 2 instancias</li>
+<li>[ ] Al menos 3 preguntas de arquitectura respondidas con evidencia en código</li>
+<li>[ ] correlationId trazado en Loki de principio a fin</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

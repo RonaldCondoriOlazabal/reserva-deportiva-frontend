@@ -1,0 +1,1361 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Sistema distribuido de reservas de canchas deportivas con Spring Cloud y Angular">
+      
+      
+      
+      
+        <link rel="prev" href="../s05-evaluacion-u1/">
+      
+      
+        <link rel="next" href="../s07-seguridad-distribuida/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>S6 - Comunicacion sincrona resiliente - Reserva Deportiva - DISTribuidas 2026</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#s06-comunicacion-sincrona-resiliente" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Reserva Deportiva - DISTribuidas 2026" class="md-header__button md-logo" aria-label="Reserva Deportiva - DISTribuidas 2026" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Reserva Deportiva - DISTribuidas 2026
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              S6 - Comunicacion sincrona resiliente
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Reserva Deportiva - DISTribuidas 2026" class="md-nav__button md-logo" aria-label="Reserva Deportiva - DISTribuidas 2026" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Reserva Deportiva - DISTribuidas 2026
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Sistema distribuido base
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Sistema distribuido base
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s01-servicio-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S1 - Servicio base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s02-configuracion-ambientes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S2 - Configuracion y ambientes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s03-registro-descubrimiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 - Registro y descubrimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s04-acceso-unico-trafico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S4 - Acceso unico y trafico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s05-evaluacion-u1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S5 - Evaluacion U1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Sistema distribuido robusto
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Sistema distribuido robusto
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S6 - Comunicacion sincrona resiliente
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S6 - Comunicacion sincrona resiliente
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-proposito" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Propósito
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-el-problema-comunicacion-entre-servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. El problema: comunicación entre servicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-openfeign-clientes-declarativos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. OpenFeign — clientes declarativos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-endpoint-de-detalle-enriquecido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Endpoint de detalle enriquecido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-circuit-breaker-con-resilience4j" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Circuit Breaker con Resilience4j
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-estados-del-circuit-breaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Estados del Circuit Breaker
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-demostracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Demostración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Demostración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario-normal-todos-los-servicios-activos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario normal (todos los servicios activos)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escenario-degradado-horarios-ms-caido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario degradado (horarios-ms caído)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-metricas-del-circuit-breaker-en-prometheus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Métricas del Circuit Breaker en Prometheus
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s07-seguridad-distribuida/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S7 - Seguridad distribuida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s08-mensajeria-asincrona/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S8 - Mensajeria asincrona
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s09-consistencia-distribuida/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S9 - Consistencia distribuida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s10-observabilidad-diagnostico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S10 - Observabilidad y diagnostico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s11-integracion-frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S11 - Integracion frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s12-evaluacion-u2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S12 - Evaluacion U2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Validacion y consolidacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Validacion y consolidacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s13-validacion-end-to-end/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S13 - Validacion end-to-end
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s14-revision-tecnica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S14 - Revision tecnica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s15-defensa-tecnica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S15 - Defensa tecnica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../s16-evaluacion-final/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S16 - Evaluacion final
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-proposito" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Propósito
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-el-problema-comunicacion-entre-servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. El problema: comunicación entre servicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-openfeign-clientes-declarativos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. OpenFeign — clientes declarativos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-endpoint-de-detalle-enriquecido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Endpoint de detalle enriquecido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-circuit-breaker-con-resilience4j" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Circuit Breaker con Resilience4j
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-estados-del-circuit-breaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Estados del Circuit Breaker
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-demostracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Demostración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Demostración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario-normal-todos-los-servicios-activos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario normal (todos los servicios activos)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escenario-degradado-horarios-ms-caido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario degradado (horarios-ms caído)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-metricas-del-circuit-breaker-en-prometheus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Métricas del Circuit Breaker en Prometheus
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="s06-comunicacion-sincrona-resiliente">S06 - Comunicación Síncrona Resiliente</h1>
+<h2 id="1-proposito">1. Propósito</h2>
+<p>Implementar la comunicación síncrona entre microservicios usando <strong>OpenFeign</strong> con descubrimiento dinámico vía Eureka, y protegerla con <strong>Resilience4j Circuit Breaker</strong> para garantizar resiliencia ante fallos.</p>
+<h2 id="2-el-problema-comunicacion-entre-servicios">2. El problema: comunicación entre servicios</h2>
+<p>Cuando el frontend pide el <strong>detalle de una reserva</strong>, <code>reservas-ms</code> necesita enriquecer la respuesta con datos de <code>canchas-ms</code> y <code>horarios-ms</code>. Esta comunicación es síncrona (request-response):</p>
+<div class="highlight"><pre><span></span><code>Frontend
+  │
+  ▼
+Gateway :7091
+  │
+  ▼
+reservas-ms :9084
+  │
+  ├──[Feign]──▶ canchas-ms :9082   → nombre, ubicación, tipo
+  │
+  └──[Feign]──▶ horarios-ms :9083  → fecha, hora inicio, hora fin
+</code></pre></div>
+<h2 id="3-openfeign-clientes-declarativos">3. OpenFeign — clientes declarativos</h2>
+<p><code>reservas-ms</code> define dos clientes Feign para consumir los otros servicios:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// CanchasClient.java</span>
+<span class="nd">@FeignClient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;canchas-ms&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">// nombre en Eureka</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">CanchasClient</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&quot;/api/v1/canchas/{id}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">CanchaDto</span><span class="w"> </span><span class="nf">findCanchaById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// HorariosClient.java</span>
+<span class="nd">@FeignClient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;horarios-ms&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">// nombre en Eureka</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">HorariosClient</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&quot;/api/v1/horarios/{id}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">HorarioDto</span><span class="w"> </span><span class="nf">findHorarioById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>No se hardcodea ninguna URL; Feign consulta Eureka dinámicamente.</p>
+<h2 id="4-endpoint-de-detalle-enriquecido">4. Endpoint de detalle enriquecido</h2>
+<p><code>GET /api/v1/reservas/detalle/{id}</code> devuelve la reserva con los objetos cancha y horario anidados:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;idUsuario&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;idCancha&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;idHorario&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fechaReserva&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-07-01&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;estado&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PENDIENTE&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;cancha&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;nombre&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cancha Fútbol 1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ubicacion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pabellón A&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tipo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;futbol&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;activa&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;horario&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;idCancha&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;fecha&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-07-01&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;horaInicio&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;08:00&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;horaFin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;09:00&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;disponible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="5-circuit-breaker-con-resilience4j">5. Circuit Breaker con Resilience4j</h2>
+<p>El endpoint <code>/detalle/{id}</code> está protegido con Circuit Breaker. Si <code>canchas-ms</code> u <code>horarios-ms</code> fallan, el sistema responde en modo degradado en lugar de lanzar un error:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@CircuitBreaker</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;reservasDetalle&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fallbackMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;fallbackDetalleReserva&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="n">ReservaResponse</span><span class="w"> </span><span class="nf">findDetalleById</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Llama a canchas-ms y horarios-ms via Feign</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="c1">// Fallback: responde sin datos enriquecidos</span>
+<span class="kd">public</span><span class="w"> </span><span class="n">ReservaResponse</span><span class="w"> </span><span class="nf">fallbackDetalleReserva</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Reserva</span><span class="w"> </span><span class="n">reserva</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ReservaResponse</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="n">reserva</span><span class="p">.</span><span class="na">getId</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">idUsuario</span><span class="p">(</span><span class="n">reserva</span><span class="p">.</span><span class="na">getIdUsuario</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">idCancha</span><span class="p">(</span><span class="n">reserva</span><span class="p">.</span><span class="na">getIdCancha</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">idHorario</span><span class="p">(</span><span class="n">reserva</span><span class="p">.</span><span class="na">getIdHorario</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">fechaReserva</span><span class="p">(</span><span class="n">reserva</span><span class="p">.</span><span class="na">getFechaReserva</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">estado</span><span class="p">(</span><span class="n">reserva</span><span class="p">.</span><span class="na">getEstado</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">cancha</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span><span class="w">    </span><span class="c1">// degradado: sin datos de cancha</span>
+<span class="w">            </span><span class="p">.</span><span class="na">horario</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span><span class="w">   </span><span class="c1">// degradado: sin datos de horario</span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="6-estados-del-circuit-breaker">6. Estados del Circuit Breaker</h2>
+<div class="highlight"><pre><span></span><code>CLOSED ──[fallas &gt; umbral]──▶ OPEN ──[tiempo de espera]──▶ HALF_OPEN
+  ▲                                                              │
+  └──────────────────────[éxito]─────────────────────────────────┘
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Estado</th>
+<th>Comportamiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CLOSED</code></td>
+<td>Tráfico normal, monitorea fallos</td>
+</tr>
+<tr>
+<td><code>OPEN</code></td>
+<td>Rechaza peticiones inmediatamente → fallback</td>
+</tr>
+<tr>
+<td><code>HALF_OPEN</code></td>
+<td>Permite peticiones de prueba para ver si el servicio se recuperó</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-demostracion">7. Demostración</h2>
+<h3 id="escenario-normal-todos-los-servicios-activos">Escenario normal (todos los servicios activos)</h3>
+<div class="highlight"><pre><span></span><code><span class="nv">$TOKEN</span> <span class="p">=</span> <span class="p">(</span><span class="nb">curl </span><span class="n">-s</span> <span class="n">-X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">://</span><span class="n">localhost</span><span class="p">:</span><span class="n">7091</span><span class="p">/</span><span class="n">auth</span><span class="p">/</span><span class="n">login</span> <span class="p">`</span>
+  <span class="n">-H</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="p">`</span>
+  <span class="n">-d</span> <span class="s1">&#39;{&quot;username&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;admin123&quot;}&#39;</span> <span class="p">|</span> <span class="nb">ConvertFrom-Json</span><span class="p">).</span><span class="n">accessToken</span>
+
+<span class="c"># Crear cancha, horario y reserva primero, luego:</span>
+<span class="nb">curl </span><span class="n">http</span><span class="p">://</span><span class="n">localhost</span><span class="p">:</span><span class="n">7091</span><span class="p">/</span><span class="n">api</span><span class="p">/</span><span class="n">v1</span><span class="p">/</span><span class="n">reservas</span><span class="p">/</span><span class="n">detalle</span><span class="p">/</span><span class="n">1</span> <span class="p">`</span>
+  <span class="n">-H</span> <span class="s2">&quot;Authorization: Bearer $TOKEN&quot;</span>
+<span class="c"># Respuesta: reserva con cancha y horario anidados</span>
+</code></pre></div>
+<h3 id="escenario-degradado-horarios-ms-caido">Escenario degradado (horarios-ms caído)</h3>
+<div class="highlight"><pre><span></span><code><span class="c"># 1. Detener horarios-ms (Ctrl+C en esa terminal)</span>
+
+<span class="c"># 2. Llamar al detalle</span>
+<span class="nb">curl </span><span class="n">http</span><span class="p">://</span><span class="n">localhost</span><span class="p">:</span><span class="n">7091</span><span class="p">/</span><span class="n">api</span><span class="p">/</span><span class="n">v1</span><span class="p">/</span><span class="n">reservas</span><span class="p">/</span><span class="n">detalle</span><span class="p">/</span><span class="n">1</span> <span class="p">`</span>
+  <span class="n">-H</span> <span class="s2">&quot;Authorization: Bearer $TOKEN&quot;</span>
+<span class="c"># Respuesta: reserva con cancha=null, horario=null (fallback activo)</span>
+
+<span class="c"># 3. Ver estado del Circuit Breaker en Actuator</span>
+<span class="nb">curl </span><span class="n">http</span><span class="p">://</span><span class="n">localhost</span><span class="p">:</span><span class="n">7091</span><span class="p">/</span><span class="n">api</span><span class="p">/</span><span class="n">v1</span><span class="p">/</span><span class="n">reservas</span><span class="p">/</span><span class="n">actuator</span><span class="p">/</span><span class="n">circuitbreakers</span>
+</code></pre></div>
+<h2 id="8-metricas-del-circuit-breaker-en-prometheus">8. Métricas del Circuit Breaker en Prometheus</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Estado actual (0=CLOSED, 1=OPEN, 2=HALF_OPEN)</span>
+<span class="nv">resilience4j_circuitbreaker_state</span><span class="p">{</span><span class="nl">name</span><span class="o">=</span><span class="p">&quot;</span><span class="s">reservasDetalle</span><span class="p">&quot;}</span>
+
+<span class="c1"># Tasa de fallos</span>
+<span class="nv">resilience4j_circuitbreaker_failure_rate</span><span class="p">{</span><span class="nl">name</span><span class="o">=</span><span class="p">&quot;</span><span class="s">reservasDetalle</span><span class="p">&quot;}</span>
+
+<span class="c1"># Llamadas al fallback</span>
+<span class="nv">resilience4j_circuitbreaker_calls_total</span><span class="p">{</span><span class="nl">name</span><span class="o">=</span><span class="p">&quot;</span><span class="s">reservasDetalle</span><span class="p">&quot;,</span><span class="w"> </span><span class="nl">kind</span><span class="o">=</span><span class="p">&quot;</span><span class="s">failed</span><span class="p">&quot;}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
