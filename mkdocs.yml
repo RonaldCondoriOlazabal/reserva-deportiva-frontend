@@ -1,0 +1,50 @@
+site_name: Reserva Deportiva - DISTribuidas 2026
+site_description: Sistema distribuido de reservas de canchas deportivas con Spring Cloud y Angular
+docs_dir: docs
+
+nav:
+  - Inicio: index.md
+  - 1. Sistema distribuido base:
+      - S1 - Servicio base: sesiones/s01-servicio-base.md
+      - S2 - Configuracion y ambientes: sesiones/s02-configuracion-ambientes.md
+      - S3 - Registro y descubrimiento: sesiones/s03-registro-descubrimiento.md
+      - S4 - Acceso unico y trafico: sesiones/s04-acceso-unico-trafico.md
+      - S5 - Evaluacion U1: sesiones/s05-evaluacion-u1.md
+  - 2. Sistema distribuido robusto:
+      - S6 - Comunicacion sincrona resiliente: sesiones/s06-comunicacion-sincrona.md
+      - S7 - Seguridad distribuida: sesiones/s07-seguridad-distribuida.md
+      - S8 - Mensajeria asincrona: sesiones/s08-mensajeria-asincrona.md
+      - S9 - Consistencia distribuida: sesiones/s09-consistencia-distribuida.md
+      - S10 - Observabilidad y diagnostico: sesiones/s10-observabilidad-diagnostico.md
+      - S11 - Integracion frontend: sesiones/s11-integracion-frontend.md
+      - S12 - Evaluacion U2: sesiones/s12-evaluacion-u2.md
+  - 3. Validacion y consolidacion:
+      - S13 - Validacion end-to-end: sesiones/s13-validacion-end-to-end.md
+      - S14 - Revision tecnica: sesiones/s14-revision-tecnica.md
+      - S15 - Defensa tecnica: sesiones/s15-defensa-tecnica.md
+      - S16 - Evaluacion final: sesiones/s16-evaluacion-final.md
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+
+plugins:
+  - search
+
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
